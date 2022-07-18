@@ -12,8 +12,8 @@ POST /api/authentication/sign-up HTTP/1.1
 
 {
     "name": "Test User",
- 	"username": "testuser",
- 	"password": "test123"
+    "username": "testuser",
+    "password": "test123"
 }
 ```
 #### Sign-in
