@@ -3,6 +3,7 @@ package com.wam.springbootshop.security;
 import com.wam.springbootshop.security.jwt.JwtAuthorizationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  @Configuration
  @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${authentication.internal-api-key}")
+    private String internalApiKey;
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
@@ -54,6 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public InternalAuthenticationFilter internalAuthenticationFilter() {
+        return new InternalAuthenticationFilter(internalApiKey);
     }
 
     @Bean
