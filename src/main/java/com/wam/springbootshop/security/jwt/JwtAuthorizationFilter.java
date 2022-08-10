@@ -34,5 +34,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
         
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return request.getRequestURI().startsWith("/api/internal");
+    }
     
 }

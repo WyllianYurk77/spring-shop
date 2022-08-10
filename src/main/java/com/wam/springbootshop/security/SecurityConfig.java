@@ -1,5 +1,6 @@
 package com.wam.springbootshop.security;
 
+import com.wam.springbootshop.model.Role;
 import com.wam.springbootshop.security.jwt.JwtAuthorizationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
             .antMatchers("/api/authentication/**").permitAll()
+            .antMatchers("/api/internal/**").hasRole(Role.SYSTEM_MANAGER.name())
             .anyRequest().authenticated();
-        http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+            
+        http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(internalAuthenticationFilter(), JwtAuthorizationFilter.class);
     }
 
     @Override
