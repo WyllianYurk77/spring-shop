@@ -36,7 +36,7 @@ public class InternalAuthenticationFilter extends OncePerRequestFilter {
 
             String requestKey = SecurityUtils.extractAuthTokenFromRequest(request);
 
-            if(requestKey == null || requestKey.equals(accessKey)) {
+            if(requestKey == null || !requestKey.equals(accessKey)) {
                 log.warn("Internal key endpoint requested without or with wrong key uri: {}", request.getRequestURI());
                 throw new RuntimeException("UNAUTHORIZED");
             }
