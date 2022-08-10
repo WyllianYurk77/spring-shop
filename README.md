@@ -29,3 +29,11 @@ POST /api/authentication/sign-in HTTP/1.1
  	"password": "test123"
 }
 ```
+#### Make-admin
+
+```json
+PUT /api/internal/make-admin/admin HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2022.4.2
+> Authorization: Bearer InternalApiKey1234!
+```
